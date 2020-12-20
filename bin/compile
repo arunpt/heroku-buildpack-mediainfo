@@ -1,0 +1,19 @@
+#!/bin/sh
+
+BUILD_DIR=$1
+VENDOR_DIR="${BUILD_DIR}/vendor"
+
+
+mkdir -p $VENDOR_DIR
+echo "-----> Downloading mediainfo bin..."
+wget --quiet "https://github.com/CW4RR10R/archives/raw/master/mediainfo-19.04.tar.gz"
+echo "-----> Extracting..."
+tar -xf "mediainfo-19.04.tar.gz" -C $VENDOR_DIR
+echo "-----> Setting permissions"
+chmod +x "${VENDOR_DIR}/mediainfo/mediainfo"
+
+echo "-----> Exporting PATH"
+PROFILE_PATH="$BUILD_DIR/.profile.d/mediainfo.sh"
+mkdir -p $(dirname $PROFILE_PATH)
+echo 'export PATH="$PATH:$HOME/vendor/mediainfo"' >> $PROFILE_PATH
+echo "-----> Ready to rock :)"
